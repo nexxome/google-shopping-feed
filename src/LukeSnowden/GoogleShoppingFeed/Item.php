@@ -282,6 +282,15 @@ class Item
     }
 
     /**
+     * @param $unitPricingBaseMeasure
+     */
+    public function unitPricingBaseMeasure($unitPricingBaseMeasure)
+    {
+        $node = new Node('unit_pricing_base_measure');
+        $this->nodes['unit_pricing_base_measure'] = $node->value($unitPricingBaseMeasure)->_namespace($this->namespace);
+    }
+
+    /**
      * @param $code
      * @param $service
      * @param $cost
