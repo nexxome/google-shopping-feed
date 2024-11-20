@@ -14,7 +14,7 @@ class Item
     const OUTOFSTOCK      = 'out of stock';
 
     const PREORDER        = 'preorder';
-    
+
     const BACKORDER       = 'backorder';
 
     const BRANDNEW        = 'new';
@@ -394,6 +394,19 @@ class Item
     }
 
     /**
+     * @param $highlight
+     */
+    public function product_highlight($highlight)
+    {
+        if (!isset($this->nodes['product_highlight'])) {
+            $this->nodes['product_highlight'] = [];
+        }
+
+        $node = new Node('product_highlight');
+        $this->nodes['product_highlight'][] = $node->value($highlight)->_namespace($this->namespace)->addCdata();
+    }
+
+    /**
      * @param $id
      */
     public function item_group_id($id)
@@ -604,10 +617,10 @@ class Item
         $node = new Node('pattern');
         $this->nodes['pattern'] = $node->value($pattern)->_namespace($this->namespace);
     }
-    
+
     /**
      * Add one additional image (string) or multiple images (array).
-     * 
+     *
      * @param $imagesLink
      */
     public function additional_image_link($imagesLink)
@@ -617,12 +630,12 @@ class Item
             foreach ($imagesLink as $imageLink) {
                 $node = new Node('additional_image_link');
                 $imageLink = $this->safeCharEncodeURL(urldecode($imageLink));
-                array_push($this->nodes['additional_image_link'], $node->value($imageLink)->_namespace($this->namespace)->addCdata());            
+                array_push($this->nodes['additional_image_link'], $node->value($imageLink)->_namespace($this->namespace)->addCdata());
             }
         } else {
             $node = new Node('additional_image_link');
             $imageLink = $this->safeCharEncodeURL(urldecode($imagesLink));
-            array_push($this->nodes['additional_image_link'], $node->value($imagesLink)->_namespace($this->namespace)->addCdata()); 
-        }   
+            array_push($this->nodes['additional_image_link'], $node->value($imagesLink)->_namespace($this->namespace)->addCdata());
+        }
     }
 }
